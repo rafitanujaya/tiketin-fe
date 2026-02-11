@@ -36,6 +36,10 @@ export const BookingPage = () => {
   const selectedSeats = bookingData?.selectedSeats || [];
   const searchData = bookingData?.searchData;
 
+  const [couponCode, setCouponCode] = useState("");
+  const [discount, setDiscount] = useState(0);
+  const [couponError, setCouponError] = useState("");
+
   const handleGoToPayment = () => {
     const paymentData = {
       bus,
@@ -76,9 +80,25 @@ export const BookingPage = () => {
 
   if (!bus) return null;
 
-  const totalCost =
+  const applyCoupon = () => {
+    if (couponCode === "TIKETIN50") {
+      setDiscount(50000);
+      setCouponError("");
+    } else if (couponCode === "WKENSERU") {
+      const percent = totalCost * 0.2;
+      setDiscount(percent > 100000 ? 100000 : percent);
+      setCouponError("");
+    } else {
+      setDiscount(0);
+      setCouponError("Kode kupon tidak valid");
+    }
+  };
+
+  const subtotal =
     bus.price * selectedSeats.length +
     (useInsurance ? insuranceCost * selectedSeats.length : 0);
+
+  const totalCost = subtotal - discount;
 
   return (
     <div className="min-h-screen bg-gray-50 ">
@@ -356,6 +376,15 @@ export const BookingPage = () => {
                       {formatCurrency(bus.price * selectedSeats.length)}
                     </span>
                   </div>
+                  {discount > 0 && (
+                    <div className="flex justify-between text-sm ">
+                      {" "}
+                      <span>Diskon</span>{" "}
+                      <span className="text-green-600">
+                        - {formatCurrency(discount)}
+                      </span>{" "}
+                    </div>
+                  )}
 
                   {/* Insurance Toggle */}
                   <div className="flex justify-between items-start">
@@ -389,6 +418,43 @@ export const BookingPage = () => {
                     <span className="text-gray-600">Biaya Layanan</span>
                     <span className="font-bold text-green-600">Gratis</span>
                   </div>
+                </div>
+
+                <div className="mb-6">
+                  <label className="block text-xs font-bold text-gray-500 uppercase mb-2">
+                    Kode Promo
+                  </label>
+
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={couponCode}
+                      onChange={(e) =>
+                        setCouponCode(e.target.value.toUpperCase())
+                      }
+                      placeholder="Masukkan kode promo"
+                      className="flex-1 border border-gray-200 rounded-xl px-4 py-3 text-sm outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition"
+                    />
+
+                    <button
+                      onClick={applyCoupon}
+                      className="bg-gray-900 text-white px-4 rounded-xl text-sm font-bold hover:bg-black transition"
+                    >
+                      Pakai
+                    </button>
+                  </div>
+
+                  {discount > 0 && (
+                    <p className="text-green-600 text-xs font-bold mt-2">
+                      Diskon berhasil diterapkan!
+                    </p>
+                  )}
+
+                  {couponError && (
+                    <p className="text-red-600 text-xs font-medium mt-2">
+                      {couponError}
+                    </p>
+                  )}
                 </div>
 
                 {/* Total */}
