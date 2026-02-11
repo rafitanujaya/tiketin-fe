@@ -4,14 +4,13 @@ import './index.css'
 import { BrowserRouter, Route, Routes } from 'react-router'
 import { LandingPage } from './pages/LandingPage'
 import { SearchBusPage } from './pages/SearchBusPage'
-import { LoginModal } from './components/LoginModal'
 import { DetailBusPage } from './pages/DetailBusPage'
 import { BookingPage } from './pages/BookingPage'
-import { PaymentPage } from './pages/paymentPage'
 import { SuccessPaymentPage } from './pages/SuccessPaymentPage'
 import { AuthProvider } from './context/AuthContext'
 import { MainLayout } from './components/layout/MainLayout'
 import { DashboardPage } from './pages/DashboardPage'
+import { PaymentPage } from './pages/paymentPage'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
