@@ -10,7 +10,7 @@ import { SuccessPaymentPage } from './pages/SuccessPaymentPage'
 import { AuthProvider } from './context/AuthContext'
 import { MainLayout } from './components/layout/MainLayout'
 import { DashboardPage } from './pages/DashboardPage'
-import { PaymentPage } from './pages/paymentPage'
+import { PaymentPage } from './pages/PaymentPage'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
