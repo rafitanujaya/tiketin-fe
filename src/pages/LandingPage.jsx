@@ -32,7 +32,7 @@ export const LandingPage = () => {
       {/* Section : Hero & Cari tiket */}
       <section className="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src={background} alt="" />
+          <img src={background} alt="" className="w-full h-full object-cover" />
         </div>
 
         <div className="relative z-10 flex justify-between items-center max-w-7xl w-full mx-auto">
