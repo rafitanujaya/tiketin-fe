@@ -48,6 +48,7 @@ export const Navbar = ({
   }, []);
 
   const solid = isLanding ? isScrolled : true;
+  console.log(isLanding);
 
   const scrollToSection = (id) => {
   document.getElementById(id)?.scrollIntoView({
@@ -94,7 +95,7 @@ export const Navbar = ({
 
         {/* ================= MENU ================= */}
         <div
-          className={`flex items-center gap-8 font-bold text-sm ${
+          className={`${isLanding ? '' : 'hidden' } flex items-center gap-8 font-bold text-sm ${
             solid ? "text-gray-600" : "text-white/90"
           }`}
         >
